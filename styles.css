@@ -1,66 +1,65 @@
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(135deg, #0b3d91, #2196f3);
-    color: white;
+
+function checkGuarantee() {
+    let date = document.getElementById("orderDate").value;
+    let days = parseInt(document.getElementById("daysOption").value);
+
+    if (!date) {
+        document.getElementById("guaranteeResult").innerText = "Select a date.";
+        return;
+    }
+
+    let orderDate = new Date(date);
+    let expiry = new Date(orderDate);
+    expiry.setDate(expiry.getDate() + days);
+
+    let today = new Date();
+
+    if (today <= expiry) {
+        document.getElementById("guaranteeResult").innerHTML =
+            "✅ Eligible<br>Expires: " + expiry.toDateString();
+    } else {
+        document.getElementById("guaranteeResult").innerHTML =
+            "❌ Not Eligible<br>Expired: " + expiry.toDateString();
+    }
 }
 
-/* Title */
-h1 {
-    text-align: center;
-    padding: 20px;
+function convertTime() {
+    let sec = parseFloat(document.getElementById("seconds").value);
+
+    if (isNaN(sec)) {
+        document.getElementById("timeResult").innerText = "Enter seconds.";
+        return;
+    }
+
+    document.getElementById("timeResult").innerText =
+        (sec / 60).toFixed(2) + " minutes";
 }
 
-/* Layout grid */
-.container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-    padding: 20px;
+function calculateRefund() {
+    let price = parseFloat(document.getElementById("price").value);
+    let rate = parseFloat(document.getElementById("refundOption").value);
+
+    if (isNaN(price)) {
+        document.getElementById("refundResult").innerText = "Enter price.";
+        return;
+    }
+
+    let refund = price * rate;
+
+    document.getElementById("refundResult").innerHTML =
+        "Refund: $" + refund.toFixed(2) +
+        "<br>Remaining: $" + (price - refund).toFixed(2);
 }
 
-/* Cards */
-.card {
-    background: rgba(255,255,255,0.1);
-    padding: 20px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
-    transition: 0.2s;
-}
+function generateDescription() {
+    let type = document.getElementById("productType").value;
 
-.card:hover {
-    transform: translateY(-5px);
-}
+    const data = {
+        weight: "Boost metabolism and burn fat effectively.",
+        memory: "Improve focus and brain performance.",
+        male: "Enhance stamina and confidence.",
+        skin: "Promote smooth and glowing skin."
+    };
 
-/* Inputs */
-input, select {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border-radius: 6px;
-    border: none;
-}
-
-/* Buttons */
-button {
-    width: 100%;
-    margin-top: 10px;
-    padding: 10px;
-    border: none;
-    border-radius: 6px;
-    background: #0d47a1;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #002171;
-}
-
-/* Output */
-p {
-    margin-top: 10px;
-    font-weight: bold;
+    document.getElementById("descriptionResult").innerText = data[type];
 }
