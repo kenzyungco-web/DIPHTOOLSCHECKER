@@ -1,65 +1,244 @@
+/* =========================
+   GLOBAL STYLES
+========================= */
 
-function checkGuarantee() {
-    let date = document.getElementById("orderDate").value;
-    let days = parseInt(document.getElementById("daysOption").value);
-
-    if (!date) {
-        document.getElementById("guaranteeResult").innerText = "Select a date.";
-        return;
-    }
-
-    let orderDate = new Date(date);
-    let expiry = new Date(orderDate);
-    expiry.setDate(expiry.getDate() + days);
-
-    let today = new Date();
-
-    if (today <= expiry) {
-        document.getElementById("guaranteeResult").innerHTML =
-            "✅ Eligible<br>Expires: " + expiry.toDateString();
-    } else {
-        document.getElementById("guaranteeResult").innerHTML =
-            "❌ Not Eligible<br>Expired: " + expiry.toDateString();
-    }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-function convertTime() {
-    let sec = parseFloat(document.getElementById("seconds").value);
-
-    if (isNaN(sec)) {
-        document.getElementById("timeResult").innerText = "Enter seconds.";
-        return;
-    }
-
-    document.getElementById("timeResult").innerText =
-        (sec / 60).toFixed(2) + " minutes";
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1d4ed8);
+  color: white;
+  min-height: 100vh;
+  transition: 0.4s ease;
 }
 
-function calculateRefund() {
-    let price = parseFloat(document.getElementById("price").value);
-    let rate = parseFloat(document.getElementById("refundOption").value);
-
-    if (isNaN(price)) {
-        document.getElementById("refundResult").innerText = "Enter price.";
-        return;
-    }
-
-    let refund = price * rate;
-
-    document.getElementById("refundResult").innerHTML =
-        "Refund: $" + refund.toFixed(2) +
-        "<br>Remaining: $" + (price - refund).toFixed(2);
+/* Dark Mode */
+body.dark-mode {
+  background: linear-gradient(135deg, #020617, #111827);
 }
 
-function generateDescription() {
-    let type = document.getElementById("productType").value;
+/* =========================
+   LOADER
+========================= */
 
-    const data = {
-        weight: "Boost metabolism and burn fat effectively.",
-        memory: "Improve focus and brain performance.",
-        male: "Enhance stamina and confidence.",
-        skin: "Promote smooth and glowing skin."
-    };
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: #0f172a;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
 
-    document.getElementById("descriptionResult").innerText = data[type];
+.spinner {
+  width: 70px;
+  height: 70px;
+  border: 8px solid rgba(255,255,255,0.2);
+  border-top: 8px solid #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 40px;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  font-size: 2rem;
+}
+
+.subtitle {
+  opacity: 0.8;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.clock {
+  background: rgba(255,255,255,0.15);
+  padding: 10px 18px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.toggle-btn {
+  background: #38bdf8;
+  border: none;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.toggle-btn:hover {
+  transform: translateY(-2px);
+  background: #0ea5e9;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 25px;
+  padding: 20px 40px 50px;
+}
+
+.card {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 25px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card h2 {
+  margin-bottom: 20px;
+}
+
+/* =========================
+   FORM ELEMENTS
+========================= */
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 8px;
+  font-size: 0.95rem;
+}
+
+input {
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 14px;
+  background: linear-gradient(90deg, #38bdf8, #2563eb);
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* =========================
+   RESULT BOXES
+========================= */
+
+.result-box,
+.product-result {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 15px;
+  background: rgba(255,255,255,0.1);
+  min-height: 60px;
+}
+
+.success {
+  background: rgba(34, 197, 94, 0.2);
+  border: 2px solid #22c55e;
+}
+
+.error {
+  background: rgba(239, 68, 68, 0.2);
+  border: 2px solid #ef4444;
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #2563eb;
+  color: white;
+  padding: 15px 20px;
+  border-radius: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.4s;
+  z-index: 1000;
+}
+
+.notification.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer {
+  text-align: center;
+  padding: 20px;
+  opacity: 0.8;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+
+  .header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+
+  .dashboard {
+    padding: 20px;
+  }
 }
