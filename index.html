@@ -1,273 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Moneyback Guarantee Checker</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Service Utility Dashboard</title>
 
-    <!-- ============ CSS ============ -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f4f7fc;
-            padding: 30px 20px;
-            color: #1e2a3a;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-
-        .card {
-            background: #ffffff;
-            border-radius: 16px;
-            padding: 24px 26px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
-            border: 1px solid #e9edf4;
-            transition: box-shadow 0.2s;
-        }
-
-        .card:hover {
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.09);
-        }
-
-        .card-full {
-            grid-column: 1 / -1;
-        }
-
-        h2 {
-            font-size: 1.3rem;
-            font-weight: 600;
-            margin-bottom: 18px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            color: #0b2b4a;
-            border-bottom: 2px solid #eef3f9;
-            padding-bottom: 12px;
-        }
-
-        h2 span {
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 16px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-bottom: 4px;
-            color: #2c3e50;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid #d0d8e3;
-            border-radius: 10px;
-            font-size: 0.95rem;
-            background: #fafcff;
-            transition: border 0.2s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #2d7ee7;
-            box-shadow: 0 0 0 3px rgba(45, 126, 231, 0.12);
-        }
-
-        .btn {
-            background: #2d7ee7;
-            color: #fff;
-            border: none;
-            padding: 10px 22px;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: background 0.2s, transform 0.1s;
-        }
-
-        .btn:hover {
-            background: #1b62c0;
-        }
-
-        .btn:active {
-            transform: scale(0.97);
-        }
-
-        .btn-secondary {
-            background: #e9edf4;
-            color: #1e2a3a;
-        }
-
-        .btn-secondary:hover {
-            background: #d5dce6;
-        }
-
-        .result-box {
-            margin-top: 18px;
-            padding: 16px 18px;
-            background: #f8faff;
-            border-radius: 12px;
-            border-left: 4px solid #2d7ee7;
-            font-size: 0.95rem;
-            min-height: 56px;
-            word-break: break-word;
-        }
-
-        .result-box.success {
-            border-left-color: #27ae60;
-            background: #f0faf4;
-        }
-
-        .result-box.warning {
-            border-left-color: #f39c12;
-            background: #fef9ed;
-        }
-
-        .result-box.danger {
-            border-left-color: #e74c3c;
-            background: #fdf2f0;
-        }
-
-        .result-box p {
-            margin-bottom: 4px;
-        }
-
-        .result-box .highlight {
-            font-weight: 600;
-            color: #0b2b4a;
-        }
-
-        .flex-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            align-items: center;
-        }
-
-        .inline-input {
-            display: inline-block;
-            width: auto;
-            max-width: 140px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #eef3f9;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #2c3e50;
-        }
-
-        @media (max-width: 760px) {
-            .container {
-                grid-template-columns: 1fr;
-            }
-            .card-full {
-                grid-column: 1;
-            }
-        }
-    </style>
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <div class="container">
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="spinner"></div>
+    <p>Loading Dashboard...</p>
+  </div>
 
-        <!-- ===== 1. Moneyback Guarantee Checker ===== -->
-        <div class="card">
-            <h2><span>🛡️</span> Moneyback Guarantee</h2>
-            <div class="form-group">
-                <label>Guarantee Period</label>
-                <select id="mbPeriod">
-                    <option value="60">60 Days</option>
-                    <option value="80">80 Days</option>
-                    <option value="180" selected>180 Days</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label>Order Date</label>
-                <input type="date" id="mbOrderDate" />
-            </div>
-            <div class="form-group">
-                <label>Guarantee End Date (optional — overrides period)</label>
-                <input type="date" id="mbEndDate" />
-            </div>
-            <button class="btn" id="btnCheckGuarantee">Check Guarantee</button>
-            <div class="result-box" id="mbResult">Enter order date and click Check.</div>
-        </div>
-
-        <!-- ===== 2. AHT Converter: seconds → minutes ===== -->
-        <div class="card">
-            <h2><span>⏱️</span> AHT Converter</h2>
-            <div class="form-group">
-                <label>Seconds</label>
-                <input type="number" id="ahtSeconds" placeholder="e.g. 3660" min="0" step="1" />
-            </div>
-            <button class="btn" id="btnConvertAht">Convert to Minutes</button>
-            <div class="result-box" id="ahtResult">Enter seconds and click Convert.</div>
-        </div>
-
-        <!-- ===== 3. Refund Offer Calculator ===== -->
-        <div class="card">
-            <h2><span>💸</span> Refund Offer Calculator</h2>
-            <div class="form-group">
-                <label>Product Price ($)</label>
-                <input type="number" id="refPrice" placeholder="e.g. 99.99" min="0" step="0.01" />
-            </div>
-            <div class="form-group">
-                <label>Refund Percentage</label>
-                <select id="refPercent">
-                    <option value="15">15%</option>
-                    <option value="25" selected>25%</option>
-                    <option value="35">35%</option>
-                    <option value="50">50%</option>
-                    <option value="75">75%</option>
-                </select>
-            </div>
-            <button class="btn" id="btnCalcRefund">Calculate Refund</button>
-            <div class="result-box" id="refResult">Enter price and select percentage.</div>
-        </div>
-
-        <!-- ===== 4. Product Information Provider ===== -->
-        <div class="card">
-            <h2><span>📦</span> Product Information</h2>
-            <div class="form-group">
-                <label>Product Category</label>
-                <select id="prodCategory">
-                    <option value="dietary-supplement">Dietary Supplement</option>
-                    <option value="memory-pills">Memory Pills</option>
-                    <option value="weight-loss">Weight Loss</option>
-                    <option value="male-enhancement">Male Enhancement</option>
-                </select>
-            </div>
-            <button class="btn" id="btnShowProductInfo">Show Info</button>
-            <div class="result-box" id="prodResult">Select a category and click Show Info.</div>
-        </div>
-
-        <!-- ===== Extra info row ===== -->
-        <div class="card card-full" style="text-align:center; padding:14px 20px; background:#f0f5fe;">
-            <p style="font-size:0.9rem; color:#2c3e50;">
-                ⚡ All tools are updated in real‑time. Dates use your local timezone.
-            </p>
-        </div>
-
+  <!-- Header -->
+  <header class="header">
+    <div>
+      <h1>Customer Service Utility Dashboard</h1>
+      <p class="subtitle">Professional Support Tools</p>
     </div>
+
+    <div class="header-right">
+      <div class="clock" id="clock">00:00:00</div>
+
+      <button id="darkModeToggle" class="toggle-btn">
+        🌙 Dark Mode
+      </button>
+    </div>
+  </header>
+
+  <!-- Notification -->
+  <div id="notification" class="notification"></div>
+
+  <!-- Main Dashboard -->
+  <main class="dashboard">
+
+    <!-- Moneyback Guarantee Checker -->
+    <section class="card">
+      <h2>💰 Moneyback Guarantee Checker</h2>
+
+      <form id="guaranteeForm">
+        <div class="input-group">
+          <label>Purchase Date</label>
+          <input type="date" id="purchaseDate" required />
+        </div>
+
+        <div class="input-group">
+          <label>Guarantee Period (Days)</label>
+          <input type="number" id="guaranteeDays" placeholder="30" required />
+        </div>
+
+        <button type="submit" class="btn">Check Eligibility</button>
+      </form>
+
+      <div id="guaranteeResult" class="result-box"></div>
+    </section>
+
+    <!-- AHT Converter -->
+    <section class="card">
+      <h2>⏱ AHT Time Converter</h2>
+
+      <div class="input-group">
+        <label>Enter Seconds</label>
+        <input type="number" id="secondsInput" placeholder="Enter seconds" />
+      </div>
+
+      <div class="conversion-results">
+        <p><strong>Minutes:</strong> <span id="minutesResult">0</span></p>
+        <p><strong>Hours:</strong> <span id="hoursResult">0</span></p>
+        <p><strong>HH:MM:SS:</strong> <span id="hhmmssResult">00:00:00</span></p>
+      </div>
+    </section>
+
+    <!-- Refund Calculator -->
+    <section class="card">
+      <h2>📊 Refund Option Calculator</h2>
+
+      <div class="input-group">
+        <label>Product Price</label>
+        <input type="number" id="productPrice" placeholder="1000" />
+      </div>
+
+      <div class="input-group">
+        <label>Refund Percentage (%)</label>
+        <input type="number" id="refundPercent" placeholder="80" />
+      </div>
+
+      <div class="input-group">
+        <label>Processing Fee</label>
+        <input type="number" id="processingFee" placeholder="50" />
+      </div>
+
+      <button class="btn" id="calculateRefund">
+        Calculate Refund
+      </button>
+
+      <div id="refundResult" class="result-box"></div>
+    </section>
+
+    <!-- Product Information Provider -->
+    <section class="card product-card">
+      <h2>📦 Product Information Provider</h2>
+
+      <div class="input-group">
+        <label>Search Product</label>
+        <input type="text" id="productSearch" placeholder="Enter Product ID or Name" />
+      </div>
+
+      <button class="btn" id="searchProduct">
+        Search Product
+      </button>
+
+      <div id="productResult" class="product-result"></div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2026 Customer Service Dashboard | Built with HTML, CSS & JavaScript</p>
+  </footer>
+
+  <!-- JS -->
+  <script src="script.js"></script>
+</body>
+</html>
