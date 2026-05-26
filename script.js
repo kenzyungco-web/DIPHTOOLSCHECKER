@@ -1,41 +1,47 @@
-function checkGuarantee() {
-    const orderDateInput = document.getElementById("orderDate").value;
-    const daysInput = parseInt(document.getElementById("days").value);
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6f8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
 
-    if (!orderDateInput || isNaN(daysInput)) {
-        alert("Please fill in all fields.");
-        return;
-    }
+.container {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
 
-    // Start date = order date (IMPORTANT ✅)
-    const orderDate = new Date(orderDateInput);
+h1 {
+    margin-bottom: 15px;
+}
 
-    // Calculate expiry date
-    const expiryDate = new Date(orderDate);
-    expiryDate.setDate(expiryDate.getDate() + daysInput);
+input {
+    padding: 10px;
+    width: 200px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-    // Format date
-    const formattedExpiry = expiryDate.toLocaleDateString();
+button {
+    padding: 10px 20px;
+    background: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-    // Get today
-    const today = new Date();
+button:hover {
+    background: #005a9e;
+}
 
-    // Check status
-    let statusText = "";
-    let statusClass = "";
-
-    if (today <= expiryDate) {
-        statusText = "Valid (Eligible for Refund)";
-        statusClass = "valid";
-    } else {
-        statusText = "Expired (Not Eligible)";
-        statusClass = "expired";
-    }
-
-    // Display outputs
-    document.getElementById("expiryDate").textContent = formattedExpiry;
-
-    const statusElement = document.getElementById("status");
-    statusElement.textContent = statusText;
-    statusElement.className = statusClass;
+#result {
+    margin-top: 15px;
+    font-size: 18px;
+    font-weight: bold;
 }
