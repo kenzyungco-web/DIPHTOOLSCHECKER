@@ -1,55 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Support Tools</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Money-back Checker</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Support Tools</h1>
+<div class="container">
+    <h2>Money-back Guarantee Checker</h2>
 
-<!-- MONEY BACK CHECKER -->
-<div class="card">
-    <h2>Money Back Guarantee Checker</h2>
     <input type="date" id="orderDate">
-    <select id="guarantee">
+
+    <select id="daysOption">
         <option value="60">60 Days</option>
         <option value="90">90 Days</option>
         <option value="180">180 Days</option>
     </select>
+
     <button onclick="checkGuarantee()">Check</button>
-    <p id="resultGuarantee"></p>
+
+    <div id="result"></div>
 </div>
 
-<!-- AHT CONVERTER -->
-<div class="card">
-    <h2>AHT Converter (Seconds → Minutes)</h2>
-    <input type="number" id="seconds" placeholder="Enter seconds">
-    <button onclick="convertAHT()">Convert</button>
-    <p id="resultAHT"></p>
-</div>
+<script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Money-back Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
-<!-- REFUND CALCULATOR -->
-<div class="card">
-    <h2>Refund Offer Calculator</h2>
-    <input type="number" id="price" placeholder="Enter product price">
-    <select id="refundType">
-        <option value="35">35%</option>
-        <option value="50">50%</option>
+<div class="container">
+    <h2>Money-back Guarantee Checker</h2>
+
+    <input type="date" id="orderDate">
+
+    <select id="daysOption">
+        <option value="60">60 Days</option>
+        <option value="90">90 Days</option>
+        <option value="180">180 Days</option>
     </select>
-    <button onclick="calculateRefund()">Calculate</button>
-    <p id="resultRefund"></p>
+
+    <button onclick="checkGuarantee()">Check</button>
+
+    <div id="result"></div>
 </div>
 
-<!-- PRODUCT DESCRIPTION -->
-<div class="card">
-    <h2>Product Description Generator</h2>
-    <input type="text" id="productName" placeholder="Product Name">
-    <input type="text" id="productFeature" placeholder="Main Feature">
-    <button onclick="generateDescription()">Generate</button>
-    <p id="resultDescription"></p>
+<script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Money-back Checker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Money-back Guarantee Checker</h2>
+
+    <input type="date" id="orderDate">
+
+    <select id="daysOption">
+        <option value="60">60 Days</option>
+        <option value="90">90 Days</option>
+        <option value="180">180 Days</option>
+    </select>
+
+    <button onclick="checkGuarantee()">Check</button>
+
+    <div id="result"></div>
 </div>
+
+<script src="script.js"></script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Product Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Product Description Generator</h2>
+
+<select id="productType">
+    <option value="weight">Weight Loss</option>
+    <option value="memory">Memory</option>
+    <option value="male">Male Enhancement</option>
+    <option value="skin">Skin Product</option>
+</select>
+
+<button onclick="generate()">Generate</button>
+
+<p id="desc"></p>
 
 <script src="script.js"></script>
 </body>
