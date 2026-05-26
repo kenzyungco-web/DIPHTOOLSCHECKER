@@ -1,19 +1,18 @@
 
-// MONEY BACK
 function checkGuarantee() {
-    let dateInput = document.getElementById("orderDate").value;
+    let date = document.getElementById("orderDate").value;
     let days = parseInt(document.getElementById("daysOption").value);
 
-    if (!dateInput) {
+    if (!date) {
         document.getElementById("guaranteeResult").innerText = "Select a date.";
         return;
     }
 
-    let orderDate = new Date(dateInput);
-    let today = new Date();
-
+    let orderDate = new Date(date);
     let expiry = new Date(orderDate);
     expiry.setDate(expiry.getDate() + days);
+
+    let today = new Date();
 
     if (today <= expiry) {
         document.getElementById("guaranteeResult").innerHTML =
@@ -24,52 +23,43 @@ function checkGuarantee() {
     }
 }
 
-
-// AHT
 function convertTime() {
-    let sec = parseFloat(document.getElementById("seconds").value);
+    let s = parseFloat(document.getElementById("seconds").value);
 
-    if (isNaN(sec) || sec < 0) {
-        document.getElementById("timeResult").innerText = "Enter valid seconds.";
+    if (isNaN(s)) {
+        document.getElementById("timeResult").innerText = "Enter seconds.";
         return;
     }
 
-    let minutes = sec / 60;
     document.getElementById("timeResult").innerText =
-        minutes.toFixed(2) + " minutes";
+        (s / 60).toFixed(2) + " minutes";
 }
 
-
-// REFUND
 function calculateRefund() {
     let price = parseFloat(document.getElementById("price").value);
     let rate = parseFloat(document.getElementById("refundOption").value);
 
-    if (isNaN(price) || price <= 0) {
-        document.getElementById("refundResult").innerText = "Enter valid price.";
+    if (isNaN(price)) {
+        document.getElementById("refundResult").innerText = "Enter price.";
         return;
     }
 
     let refund = price * rate;
-    let remaining = price - refund;
 
     document.getElementById("refundResult").innerHTML =
         "Refund: $" + refund.toFixed(2) +
-        "<br>Customer Pays: $" + remaining.toFixed(2);
+        "<br>Remaining: $" + (price - refund).toFixed(2);
 }
 
-
-// PRODUCT
 function generateDescription() {
     let type = document.getElementById("productType").value;
 
-    const descriptions = {
-        weight: "Boost metabolism, burn fat, and increase energy.",
-        memory: "Improves memory, focus, and cognitive function.",
-        male: "Enhances stamina, performance, and confidence.",
-        skin: "Hydrates skin, reduces wrinkles, promotes glow."
+    const data = {
+        weight: "Boost metabolism and burn fat effectively.",
+        memory: "Improve focus and brain performance.",
+        male: "Enhance stamina and overall performance.",
+        skin: "Promote glowing and healthy skin."
     };
 
-    document.getElementById("descriptionResult").innerText =
-        descriptions[type];
+    document.getElementById("descriptionResult").innerText = data[type];
 }
