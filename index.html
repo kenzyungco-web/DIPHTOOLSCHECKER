@@ -1,208 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Moneyback Guarantee Checker</title>
-<style>
-body {
-    font-family: Arial;
-    background: #eaf3ff;
-    text-align: center;
-}
-.container {
-    margin: 80px auto;
-    padding: 25px;
-    width: 350px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.2);
-}
-h2 { color: #007BFF; }
-input, select, button {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-}
-button {
-    background: #007BFF;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-button:hover { background: #0056b3; }
-.result {
-    font-weight: bold;
-    margin-top: 15px;
-}
-</style>
+  <meta charset="UTF-8">
+  <title>Support Tools</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
-<div class="container">
-<h2>Moneyback Checker</h2>
 
-<label>Order Date:</label>
-<input type="date" id="orderDate">
+  <div class="container">
+    <h1>Customer Support Tools</h1>
 
-<label>Guarantee Duration:</label>
-<select id="duration">
-    <option value="60">60 Days</option>
-    <option value="90">90 Days</option>
-    <option value="180">180 Days</option>
-</select>
+    <!-- MONEYBACK CHECKER -->
+    <div class="card">
+      <h2>Moneyback Guarantee Checker</h2>
+      <label>Order Date:</label>
+      <input type="date" id="orderDate">
 
-<button onclick="checkGuarantee()">Check Status</button>
+      <label>Guarantee Period:</label>
+      <select id="guaranteeDays">
+        <option value="60">60 Days</option>
+        <option value="90">90 Days</option>
+        <option value="180">180 Days</option>
+      </select>
 
-<div class="result" id="result"></div>
-</div>
+      <button onclick="checkGuarantee()">Check</button>
+      <p id="guaranteeResult"></p>
+    </div>
 
-<script>
-function checkGuarantee() {
-    const orderDate = new Date(document.getElementById("orderDate").value);
-    const duration = parseInt(document.getElementById("duration").value);
+    <!-- AHT CONVERTER -->
+    <div class="card">
+      <h2>AHT Converter</h2>
+      <label>Seconds:</label>
+      <input type="number" id="secondsInput">
 
-    if (!orderDate) {
-        alert("Please select a valid date");
-        return;
-    }
+      <button onclick="convertAHT()">Convert</button>
+      <p id="ahtResult"></p>
+    </div>
 
-    let expiryDate = new Date(orderDate);
-    expiryDate.setDate(expiryDate.getDate() + duration);
+    <!-- REFUND CALCULATOR -->
+    <div class="card">
+      <h2>Refund Offer Calculator</h2>
+      <label>Product Price:</label>
+      <input type="number" id="priceInput">
 
-    let today = new Date();
+      <button onclick="calculateRefund()">Calculate</button>
+      <p id="refundResult"></p>
+    </div>
 
-    if (today <= expiryDate) {
-        document.getElementById("result").innerHTML =
-            "✅ Eligible until " + expiryDate.toDateString();
-    } else {
-        document.getElementById("result").innerHTML =
-            "❌ Guarantee expired on " + expiryDate.toDateString();
-    }
-}
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>AHT Converter</title>
-<style>
-body {
-    font-family: Arial;
-    background: #eaf3ff;
-    text-align: center;
-}
-.container {
-    margin: 80px auto;
-    padding: 25px;
-    width: 300px;
-    background: white;
-    border-radius: 10px;
-}
-h2 { color: #007BFF; }
-input, button {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-}
-button {
-    background: #007BFF;
-    color: white;
-    border: none;
-}
-button:hover { background: #0056b3; }
-.result { font-weight: bold; }
-</style>
-</head>
+  </div>
 
-<body>
-<div class="container">
-<h2>AHT Converter</h2>
-
-<input type="number" id="seconds" placeholder="Enter Seconds">
-
-<button onclick="convertTime()">Convert</button>
-
-<div class="result" id="output"></div>
-</div>
-
-<script>
-function convertTime() {
-    let seconds = parseInt(document.getElementById("seconds").value);
-
-    if (isNaN(seconds)) {
-        alert("Enter valid seconds");
-        return;
-    }
-
-    let minutes = (seconds / 60).toFixed(2);
-
-    document.getElementById("output").innerHTML =
-        seconds + " seconds = " + minutes + " minutes";
-}
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<title>Refund Offer Calculator</title>
-<style>
-body {
-    font-family: Arial;
-    background: #eaf3ff;
-    text-align: center;
-}
-.container {
-    margin: 80px auto;
-    width: 320px;
-    padding: 25px;
-    background: white;
-    border-radius: 10px;
-}
-h2 { color: #007BFF; }
-input, button {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-}
-button {
-    background: #007BFF;
-    color: white;
-    border: none;
-}
-button:hover { background: #0056b3; }
-.result { font-weight: bold; margin-top: 10px; }
-</style>
-</head>
-
-<body>
-<div class="container">
-<h2>Refund Offer</h2>
-
-<input type="number" id="price" placeholder="Enter Product Price">
-
-<button onclick="calculateRefund()">Calculate</button>
-
-<div class="result" id="result"></div>
-</div>
-
-<script>
-function calculateRefund() {
-    let price = parseFloat(document.getElementById("price").value);
-
-    if (isNaN(price) || price <= 0) {
-        alert("Enter valid price");
-        return;
-    }
-
-    let refund35 = (price * 0.35).toFixed(2);
-    let refund50 = (price * 0.50).toFixed(2);
-
-    document.getElementById("result").innerHTML =
-        "35% Refund: ₱" + refund35 + "<br>" +
-        "50% Refund: ₱" + refund50;
-}
-</script>
+  <script src="script.js"></script>
 </body>
 </html>
