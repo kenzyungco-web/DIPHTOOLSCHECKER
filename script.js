@@ -1,65 +1,253 @@
+/* =========================
+   LOADING SCREEN
+========================= */
 
-function checkGuarantee() {
-    let date = document.getElementById("orderDate").value;
-    let days = parseInt(document.getElementById("daysOption").value);
+window.addEventListener("load", () => {
+  setTimeout(() => {
+    document.getElementById("loader").style.display = "none";
+  }, 1500);
+});
 
-    if (!date) {
-        document.getElementById("guaranteeResult").innerText = "Select a date.";
-        return;
+/* =========================
+   REAL TIME CLOCK
+========================= */
+
+function updateClock() {
+  const now = new Date();
+
+  const time = now.toLocaleTimeString();
+
+  document.getElementById("clock").textContent = time;
+}
+
+setInterval(updateClock, 1000);
+updateClock();
+
+/* =========================
+   DARK MODE TOGGLE
+========================= */
+
+const darkToggle = document.getElementById("darkModeToggle");
+
+darkToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark-mode");
+
+  showNotification("Theme changed successfully!");
+});
+
+/* =========================
+   NOTIFICATION FUNCTION
+========================= */
+
+function showNotification(message) {
+  const notification = document.getElementById("notification");
+
+  notification.textContent = message;
+  notification.classList.add("show");
+
+  setTimeout(() => {
+    notification.classList.remove("show");
+  }, 3000);
+}
+
+/* =========================
+   MONEYBACK GUARANTEE CHECKER
+========================= */
+
+document
+  .getElementById("guaranteeForm")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const purchaseDate =
+      document.getElementById("purchaseDate").value;
+
+    const guaranteeDays =
+      parseInt(document.getElementById("guaranteeDays").value);
+
+    const resultBox =
+      document.getElementById("guaranteeResult");
+
+    if (!purchaseDate || guaranteeDays <= 0) {
+      showNotification("Please enter valid inputs.");
+      return;
     }
 
-    let orderDate = new Date(date);
-    let expiry = new Date(orderDate);
-    expiry.setDate(expiry.getDate() + days);
+    const purchase = new Date(purchaseDate);
 
-    let today = new Date();
+    const expiryDate = new Date(purchase);
 
-    if (today <= expiry) {
-        document.getElementById("guaranteeResult").innerHTML =
-            "✅ Eligible<br>Expires: " + expiry.toDateString();
+    expiryDate.setDate(expiryDate.getDate() + guaranteeDays);
+
+    const today = new Date();
+
+    if (today <= expiryDate) {
+      resultBox.className = "result-box success";
+
+      resultBox.innerHTML = `
+        <h3>Eligible for Refund</h3>
+        <p>Guarantee valid until:
+        ${expiryDate.toDateString()}</p>
+      `;
     } else {
-        document.getElementById("guaranteeResult").innerHTML =
-            "❌ Not Eligible<br>Expired: " + expiry.toDateString();
-    }
-}
+      resultBox.className = "result-box error";
 
-function convertTime() {
-    let sec = parseFloat(document.getElementById("seconds").value);
-
-    if (isNaN(sec)) {
-        document.getElementById("timeResult").innerText = "Enter seconds.";
-        return;
+      resultBox.innerHTML = `
+        <h3>Guarantee Expired</h3>
+        <p>Expired on:
+        ${expiryDate.toDateString()}</p>
+      `;
     }
 
-    document.getElementById("timeResult").innerText =
-        (sec / 60).toFixed(2) + " minutes";
-}
+    showNotification("Guarantee status checked.");
+  });
 
-function calculateRefund() {
-    let price = parseFloat(document.getElementById("price").value);
-    let rate = parseFloat(document.getElementById("refundOption").value);
+/* =========================
+   AHT TIME CONVERTER
+========================= */
 
-    if (isNaN(price)) {
-        document.getElementById("refundResult").innerText = "Enter price.";
-        return;
+const secondsInput =
+  document.getElementById("secondsInput");
+
+secondsInput.addEventListener("input", () => {
+
+  const seconds = parseInt(secondsInput.value) || 0;
+
+  const minutes = (seconds / 60).toFixed(2);
+
+  const hours = (seconds / 3600).toFixed(2);
+
+  const hh = String(Math.floor(seconds / 3600)).padStart(2, "0");
+
+  const mm = String(
+    Math.floor((seconds % 3600) / 60)
+  ).padStart(2, "0");
+
+  const ss = String(seconds % 60).padStart(2, "0");
+
+  document.getElementById("minutesResult").textContent =
+    minutes;
+
+  document.getElementById("hoursResult").textContent =
+    hours;
+
+  document.getElementById("hhmmssResult").textContent =
+    `${hh}:${mm}:${ss}`;
+});
+
+/* =========================
+   REFUND CALCULATOR
+========================= */
+
+document
+  .getElementById("calculateRefund")
+  .addEventListener("click", () => {
+
+    const price =
+      parseFloat(document.getElementById("productPrice").value);
+
+    const percent =
+      parseFloat(document.getElementById("refundPercent").value);
+
+    const fee =
+      parseFloat(document.getElementById("processingFee").value);
+
+    const result =
+      document.getElementById("refundResult");
+
+    if (isNaN(price) || isNaN(percent) || isNaN(fee)) {
+      showNotification("Please fill all refund fields.");
+      return;
     }
 
-    let refund = price * rate;
+    const refundAmount = (price * percent) / 100;
 
-    document.getElementById("refundResult").innerHTML =
-        "Refund: $" + refund.toFixed(2) +
-        "<br>Remaining: $" + (price - refund).toFixed(2);
-}
+    const finalRefund = refundAmount - fee;
 
-function generateDescription() {
-    let type = document.getElementById("productType").value;
+    result.innerHTML = `
+      <h3>Refund Summary</h3>
+      <p>Refund Amount: $${refundAmount.toFixed(2)}</p>
+      <p>Processing Fee: $${fee.toFixed(2)}</p>
+      <hr>
+      <h2>Final Refund: $${finalRefund.toFixed(2)}</h2>
+    `;
 
-    const data = {
-        weight: "Boost metabolism and burn fat effectively.",
-        memory: "Improve focus and brain performance.",
-        male: "Enhance stamina and confidence.",
-        skin: "Promote smooth and glowing skin."
-    };
+    showNotification("Refund calculated successfully.");
+  });
 
-    document.getElementById("descriptionResult").innerText = data[type];
-}
+/* =========================
+   SAMPLE PRODUCT DATA
+========================= */
+
+const products = [
+  {
+    id: "P1001",
+    name: "Wireless Mouse",
+    category: "Accessories",
+    warranty: "1 Year",
+    refund: "30 Days",
+    price: "$25"
+  },
+  {
+    id: "P1002",
+    name: "Gaming Keyboard",
+    category: "Gaming",
+    warranty: "2 Years",
+    refund: "15 Days",
+    price: "$80"
+  },
+  {
+    id: "P1003",
+    name: "Bluetooth Headphones",
+    category: "Audio",
+    warranty: "1 Year",
+    refund: "45 Days",
+    price: "$120"
+  }
+];
+
+/* =========================
+   PRODUCT SEARCH
+========================= */
+
+document
+  .getElementById("searchProduct")
+  .addEventListener("click", () => {
+
+    const query =
+      document.getElementById("productSearch")
+      .value
+      .toLowerCase()
+      .trim();
+
+    const result =
+      document.getElementById("productResult");
+
+    if (!query) {
+      showNotification("Please enter a product search.");
+      return;
+    }
+
+    const found = products.find(product =>
+      product.id.toLowerCase() === query ||
+      product.name.toLowerCase().includes(query)
+    );
+
+    if (found) {
+      result.innerHTML = `
+        <h3>${found.name}</h3>
+        <p><strong>Category:</strong> ${found.category}</p>
+        <p><strong>Warranty:</strong> ${found.warranty}</p>
+        <p><strong>Refund Policy:</strong> ${found.refund}</p>
+        <p><strong>Price:</strong> ${found.price}</p>
+      `;
+
+      showNotification("Product found successfully.");
+    } else {
+      result.innerHTML = `
+        <p>No product found.</p>
+      `;
+
+      showNotification("Product not found.");
+    }
+  });
