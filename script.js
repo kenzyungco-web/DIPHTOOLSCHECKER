@@ -1,61 +1,87 @@
-function checkGuarantee(){
-    let orderDate = new Date(document.getElementById("orderDate").value);
+
+// ✅ MONEY-BACK CHECKER
+function checkGuarantee() {
+    let orderDateValue = document.getElementById("orderDate").value;
     let days = parseInt(document.getElementById("daysOption").value);
+
+    if (!orderDateValue) {
+        document.getElementById("guaranteeResult").innerText = "Please select a date.";
+        return;
+    }
+
+    let orderDate = new Date(orderDateValue);
     let today = new Date();
 
     let expiry = new Date(orderDate);
     expiry.setDate(expiry.getDate() + days);
 
-    if (isNaN(orderDate)) {
-        document.getElementById("result").innerHTML = "Select a valid date.";
-        return;
-    }
-
-    if(today <= expiry){
-        document.getElementById("result").innerHTML =
-        "✅ Eligible<br>Expires: " + expiry.toDateString();
+    if (today <= expiry) {
+        document.getElementById("guaranteeResult").innerHTML =
+            "✅ Eligible<br>Expires on: " + expiry.toDateString();
     } else {
-        document.getElementById("result").innerHTML =
-        "❌ Not Eligible<br>Expired: " + expiry.toDateString();
+        document.getElementById("guaranteeResult").innerHTML =
+            "❌ Not Eligible<br>Expired on: " + expiry.toDateString();
     }
-}function convert(){
+}
+
+
+// ✅ AHT TIME CONVERTER
+function convertTime() {
     let seconds = parseFloat(document.getElementById("seconds").value);
 
-    if(isNaN(seconds)){
-        document.getElementById("output").innerText = "Enter valid number";
+    if (isNaN(seconds) || seconds < 0) {
+        document.getElementById("timeResult").innerText = "Enter valid seconds.";
         return;
     }
 
     let minutes = seconds / 60;
-    document.getElementById("output").innerText =
-        minutes.toFixed(2) + " minutes";
-}function convert(){
-    let seconds = parseFloat(document.getElementById("seconds").value);
 
-    if(isNaN(seconds)){
-        document.getElementById("output").innerText = "Enter valid number";
+    document.getElementById("timeResult").innerText =
+        minutes.toFixed(2) + " minutes";
+}
+
+
+// ✅ REFUND CALCULATOR
+function calculateRefund() {
+    let price = parseFloat(document.getElementById("price").value);
+    let rate = parseFloat(document.getElementById("refundOption").value);
+
+    if (isNaN(price) || price <= 0) {
+        document.getElementById("refundResult").innerText = "Enter valid price.";
         return;
     }
 
-    let minutes = seconds / 60;
-    document.getElementById("output").innerText =
-        minutes.toFixed(2) + " minutes";
-}function generate(){
+    let refund = price * rate;
+    let remaining = price - refund;
+
+    document.getElementById("refundResult").innerHTML =
+        "Refund Amount: $" + refund.toFixed(2) +
+        "<br>Customer Pays: $" + remaining.toFixed(2);
+}
+
+
+// ✅ PRODUCT DESCRIPTION GENERATOR
+function generateDescription() {
     let type = document.getElementById("productType").value;
     let text = "";
 
-    if(type === "weight"){
-        text = "Boost metabolism, burn fat, and support energy levels.";
-    }
-    else if(type === "memory"){
-        text = "Enhances focus, memory retention, and brain function.";
-    }
-    else if(type === "male"){
-        text = "Supports stamina, performance, and confidence.";
-    }
-    else if(type === "skin"){
-        text = "Improves hydration, glow, and skin health.";
+    switch (type) {
+        case "weight":
+            text = "This advanced weight loss formula helps boost metabolism, support fat burning, and increase energy levels.";
+            break;
+
+        case "memory":
+            text = "This memory support supplement enhances focus, improves recall, and promotes brain health.";
+            break;
+
+        case "male":
+            text = "This male enhancement product supports stamina, performance, and overall confidence.";
+            break;
+
+        case "skin":
+            text = "This skincare solution helps improve hydration, reduce wrinkles, and promote a natural glow.";
+            break;
     }
 
-    document.getElementById("desc").innerText = text;
+    document.getElementById("descriptionResult").innerText = text;
 }
