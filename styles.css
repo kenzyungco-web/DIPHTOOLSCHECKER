@@ -1,25 +1,56 @@
-document.getElementById("convertBtn").addEventListener("click", convertTime);
-
-function convertTime() {
-    const secondsInput = document.getElementById("secondsInput");
-    const result = document.getElementById("result");
-
-    const seconds = parseInt(secondsInput.value);
-
-    // Validation
-    if (isNaN(seconds) || seconds < 0) {
-        result.textContent = "Result: Please enter valid seconds.";
-        return;
-    }
-
-    // Conversion
-    const minutes = Math.floor(seconds / 60);
-    const remainingSeconds = seconds % 60;
-
-    // Output
-    if (minutes > 0) {
-        result.textContent = `Result: ${minutes} min ${remainingSeconds} sec`;
-    } else {
-        result.textContent = `Result: ${remainingSeconds} sec`;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background-color: #e6f0ff;
+  margin: 0;
+  padding: 0;
 }
+
+.container {
+  width: 400px;
+  margin: 30px auto;
+  text-align: center;
+}
+
+h1 {
+  color: #0047ab;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+}
+
+h2 {
+  color: #0056d6;
+}
+
+input, select {
+  width: 90%;
+  padding: 8px;
+  margin: 10px 0;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #0066ff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0047ab;
+}
+
+p {
+  margin-top: 10px;
+  font-weight: bold;
+}
+``
