@@ -1,156 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Customer Service Dashboard</title>
+  <title>Customer Dashboard</title>
 
-  <!-- Google Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-    rel="stylesheet">
-
-  <!-- CSS -->
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <!-- Loader -->
-  <div id="loader">
-    <div class="spinner"></div>
-    <p>Loading Dashboard...</p>
-  </div>
+  <!-- HEADER -->
+  <header>
+    <h1>Customer Service Utility Dashboard</h1>
 
-  <!-- Header -->
-  <header class="header">
+    <div class="top-bar">
+      <div id="clock">00:00:00</div>
 
-    <div>
-      <h1>Customer Service Utility Dashboard</h1>
-      <p>Professional Support Tools</p>
-    </div>
-
-    <div class="top-right">
-      <div id="clock" class="clock">00:00:00</div>
-
-      <button id="darkModeToggle" class="toggle-btn">
-        🌙 Dark Mode
+      <button id="darkBtn">
+        Dark Mode
       </button>
     </div>
-
   </header>
 
-  <!-- Notification -->
-  <div id="notification"></div>
+  <!-- DASHBOARD -->
+  <div class="dashboard">
 
-  <!-- Dashboard -->
-  <main class="dashboard">
+    <!-- MONEYBACK -->
+    <div class="card">
 
-    <!-- Guarantee Checker -->
-    <section class="card">
+      <h2>Moneyback Guarantee Checker</h2>
 
-      <h2>💰 Moneyback Guarantee Checker</h2>
+      <input type="date" id="purchaseDate">
 
-      <form id="guaranteeForm">
+      <input type="number" id="days" placeholder="Guarantee Days">
 
-        <div class="input-group">
-          <label>Purchase Date</label>
-          <input type="date" id="purchaseDate" required>
-        </div>
-
-        <div class="input-group">
-          <label>Guarantee Period (Days)</label>
-          <input type="number" id="guaranteeDays" placeholder="30" required>
-        </div>
-
-        <button type="submit" class="btn">
-          Check Eligibility
-        </button>
-
-      </form>
-
-      <div id="guaranteeResult" class="result-box"></div>
-
-    </section>
-
-    <!-- AHT Converter -->
-    <section class="card">
-
-      <h2>⏱ AHT Time Converter</h2>
-
-      <div class="input-group">
-        <label>Enter Seconds</label>
-        <input type="number" id="secondsInput" placeholder="Enter seconds">
-      </div>
-
-      <div class="result-box">
-        <p><strong>Minutes:</strong> <span id="minutesResult">0</span></p>
-        <p><strong>Hours:</strong> <span id="hoursResult">0</span></p>
-        <p><strong>HH:MM:SS:</strong> <span id="hhmmssResult">00:00:00</span></p>
-      </div>
-
-    </section>
-
-    <!-- Refund Calculator -->
-    <section class="card">
-
-      <h2>📊 Refund Option Calculator</h2>
-
-      <div class="input-group">
-        <label>Product Price</label>
-        <input type="number" id="productPrice" placeholder="1000">
-      </div>
-
-      <div class="input-group">
-        <label>Refund Percentage (%)</label>
-        <input type="number" id="refundPercent" placeholder="80">
-      </div>
-
-      <div class="input-group">
-        <label>Processing Fee</label>
-        <input type="number" id="processingFee" placeholder="50">
-      </div>
-
-      <button id="calculateRefund" class="btn">
-        Calculate Refund
+      <button onclick="checkGuarantee()">
+        Check
       </button>
 
-      <div id="refundResult" class="result-box"></div>
+      <div id="guaranteeResult"></div>
 
-    </section>
+    </div>
 
-    <!-- Product Provider -->
-    <section class="card">
+    <!-- AHT -->
+    <div class="card">
 
-      <h2>📦 Product Information Provider</h2>
+      <h2>AHT Time Converter</h2>
 
-      <div class="input-group">
-        <label>Search Product</label>
-        <input type="text" id="productSearch" placeholder="Enter Product ID or Name">
-      </div>
+      <input type="number" id="seconds" placeholder="Enter Seconds">
 
-      <button id="searchProduct" class="btn">
-        Search Product
+      <button onclick="convertTime()">
+        Convert
       </button>
 
-      <div id="productResult" class="result-box"></div>
+      <div id="timeResult"></div>
 
-    </section>
+    </div>
 
-  </main>
+    <!-- REFUND -->
+    <div class="card">
 
-  <!-- Footer -->
-  <footer class="footer">
-    © 2026 Customer Service Dashboard
-  </footer>
+      <h2>Refund Calculator</h2>
 
-  <!-- JS -->
+      <input type="number" id="price" placeholder="Product Price">
+
+      <input type="number" id="percent" placeholder="Refund %">
+
+      <input type="number" id="fee" placeholder="Processing Fee">
+
+      <button onclick="calculateRefund()">
+        Calculate
+      </button>
+
+      <div id="refundResult"></div>
+
+    </div>
+
+    <!-- PRODUCT -->
+    <div class="card">
+
+      <h2>Product Search</h2>
+
+      <input type="text" id="productSearch" placeholder="Product Name or ID">
+
+      <button onclick="searchProduct()">
+        Search
+      </button>
+
+      <div id="productResult"></div>
+
+    </div>
+
+  </div>
+
   <script src="script.js"></script>
 
 </body>
-
 </html>
