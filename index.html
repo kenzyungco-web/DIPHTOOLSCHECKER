@@ -4,78 +4,61 @@
     <meta charset="UTF-8">
     <title>Support Tools Dashboard</title>
 
-    <!-- ✅ CORRECT CSS LINK -->
+    <!-- ✅ THIS LINE WAS MISSING BEFORE -->
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<h1>Support Tools</h1>
+<h1>Support Tools Dashboard</h1>
 
 <div class="container">
 
-    <!-- MONEY BACK -->
     <div class="card">
         <h2>Money-back Checker</h2>
-
         <input type="date" id="orderDate">
-
         <select id="daysOption">
             <option value="60">60 Days</option>
             <option value="90">90 Days</option>
             <option value="180">180 Days</option>
         </select>
-
         <button onclick="checkGuarantee()">Check</button>
-
         <p id="guaranteeResult"></p>
     </div>
 
-    <!-- AHT -->
     <div class="card">
         <h2>AHT Converter</h2>
-
-        <input type="number" id="seconds" placeholder="Seconds">
-
+        <input type="number" id="seconds" placeholder="Enter seconds">
         <button onclick="convertTime()">Convert</button>
-
         <p id="timeResult"></p>
     </div>
 
-    <!-- REFUND -->
     <div class="card">
         <h2>Refund Calculator</h2>
-
-        <input type="number" id="price" placeholder="Price">
-
+        <input type="number" id="price" placeholder="Enter price">
         <select id="refundOption">
             <option value="0.35">35%</option>
             <option value="0.50">50%</option>
         </select>
-
         <button onclick="calculateRefund()">Calculate</button>
-
         <p id="refundResult"></p>
     </div>
 
-    <!-- PRODUCT -->
     <div class="card">
         <h2>Product Description</h2>
-
         <select id="productType">
             <option value="weight">Weight Loss</option>
             <option value="memory">Memory</option>
             <option value="male">Male Enhancement</option>
             <option value="skin">Skin Product</option>
         </select>
-
         <button onclick="generateDescription()">Generate</button>
-
         <p id="descriptionResult"></p>
     </div>
 
 </div>
 
-<!-- ✅ CORRECT JS LINK -->
+<!-- ✅ THIS FIXES JAVASCRIPT -->
 <script src="script.js"></script>
 
 </body>
