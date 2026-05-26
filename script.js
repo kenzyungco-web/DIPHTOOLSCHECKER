@@ -1,11 +1,11 @@
 
-// ✅ MONEY BACK CHECKER
+// MONEY BACK
 function checkGuarantee() {
     let dateInput = document.getElementById("orderDate").value;
     let days = parseInt(document.getElementById("daysOption").value);
 
     if (!dateInput) {
-        document.getElementById("guaranteeResult").innerText = "Please select a date.";
+        document.getElementById("guaranteeResult").innerText = "Select a date.";
         return;
     }
 
@@ -25,23 +25,22 @@ function checkGuarantee() {
 }
 
 
-// ✅ AHT CONVERTER
+// AHT
 function convertTime() {
-    let seconds = parseFloat(document.getElementById("seconds").value);
+    let sec = parseFloat(document.getElementById("seconds").value);
 
-    if (isNaN(seconds) || seconds < 0) {
+    if (isNaN(sec) || sec < 0) {
         document.getElementById("timeResult").innerText = "Enter valid seconds.";
         return;
     }
 
-    let minutes = seconds / 60;
-
+    let minutes = sec / 60;
     document.getElementById("timeResult").innerText =
         minutes.toFixed(2) + " minutes";
 }
 
 
-// ✅ REFUND CALCULATOR
+// REFUND
 function calculateRefund() {
     let price = parseFloat(document.getElementById("price").value);
     let rate = parseFloat(document.getElementById("refundOption").value);
@@ -60,16 +59,17 @@ function calculateRefund() {
 }
 
 
-// ✅ PRODUCT DESCRIPTION
+// PRODUCT
 function generateDescription() {
     let type = document.getElementById("productType").value;
 
-    let descriptions = {
-        weight: "Boost metabolism, burn fat, and increase daily energy levels.",
-        memory: "Enhances focus, improves memory recall, and supports brain health.",
-        male: "Supports stamina, performance, and confidence.",
-        skin: "Improves hydration, reduces wrinkles, and enhances skin glow."
+    const descriptions = {
+        weight: "Boost metabolism, burn fat, and increase energy.",
+        memory: "Improves memory, focus, and cognitive function.",
+        male: "Enhances stamina, performance, and confidence.",
+        skin: "Hydrates skin, reduces wrinkles, promotes glow."
     };
 
-    document.getElementById("descriptionResult").innerText = descriptions[type];
+    document.getElementById("descriptionResult").innerText =
+        descriptions[type];
 }
