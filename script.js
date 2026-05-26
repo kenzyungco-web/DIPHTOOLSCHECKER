@@ -1,15 +1,15 @@
 
-// ✅ MONEY-BACK CHECKER
+// ✅ MONEY BACK CHECKER
 function checkGuarantee() {
-    let orderDateValue = document.getElementById("orderDate").value;
+    let dateInput = document.getElementById("orderDate").value;
     let days = parseInt(document.getElementById("daysOption").value);
 
-    if (!orderDateValue) {
+    if (!dateInput) {
         document.getElementById("guaranteeResult").innerText = "Please select a date.";
         return;
     }
 
-    let orderDate = new Date(orderDateValue);
+    let orderDate = new Date(dateInput);
     let today = new Date();
 
     let expiry = new Date(orderDate);
@@ -17,15 +17,15 @@ function checkGuarantee() {
 
     if (today <= expiry) {
         document.getElementById("guaranteeResult").innerHTML =
-            "✅ Eligible<br>Expires on: " + expiry.toDateString();
+            "✅ Eligible<br>Expires: " + expiry.toDateString();
     } else {
         document.getElementById("guaranteeResult").innerHTML =
-            "❌ Not Eligible<br>Expired on: " + expiry.toDateString();
+            "❌ Not Eligible<br>Expired: " + expiry.toDateString();
     }
 }
 
 
-// ✅ AHT TIME CONVERTER
+// ✅ AHT CONVERTER
 function convertTime() {
     let seconds = parseFloat(document.getElementById("seconds").value);
 
@@ -55,33 +55,21 @@ function calculateRefund() {
     let remaining = price - refund;
 
     document.getElementById("refundResult").innerHTML =
-        "Refund Amount: $" + refund.toFixed(2) +
+        "Refund: $" + refund.toFixed(2) +
         "<br>Customer Pays: $" + remaining.toFixed(2);
 }
 
 
-// ✅ PRODUCT DESCRIPTION GENERATOR
+// ✅ PRODUCT DESCRIPTION
 function generateDescription() {
     let type = document.getElementById("productType").value;
-    let text = "";
 
-    switch (type) {
-        case "weight":
-            text = "This advanced weight loss formula helps boost metabolism, support fat burning, and increase energy levels.";
-            break;
+    let descriptions = {
+        weight: "Boost metabolism, burn fat, and increase daily energy levels.",
+        memory: "Enhances focus, improves memory recall, and supports brain health.",
+        male: "Supports stamina, performance, and confidence.",
+        skin: "Improves hydration, reduces wrinkles, and enhances skin glow."
+    };
 
-        case "memory":
-            text = "This memory support supplement enhances focus, improves recall, and promotes brain health.";
-            break;
-
-        case "male":
-            text = "This male enhancement product supports stamina, performance, and overall confidence.";
-            break;
-
-        case "skin":
-            text = "This skincare solution helps improve hydration, reduce wrinkles, and promote a natural glow.";
-            break;
-    }
-
-    document.getElementById("descriptionResult").innerText = text;
+    document.getElementById("descriptionResult").innerText = descriptions[type];
 }
