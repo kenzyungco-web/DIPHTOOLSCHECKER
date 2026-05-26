@@ -5,35 +5,35 @@ body {
     color: white;
 }
 
-/* TITLE */
+/* Title */
 h1 {
     text-align: center;
     padding: 20px;
 }
 
-/* GRID LAYOUT */
+/* Layout grid */
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
     padding: 20px;
 }
 
-/* CARD STYLE */
+/* Cards */
 .card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
+    background: rgba(255,255,255,0.1);
     padding: 20px;
+    border-radius: 12px;
     backdrop-filter: blur(10px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    transition: transform 0.2s ease;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+    transition: 0.2s;
 }
 
 .card:hover {
     transform: translateY(-5px);
 }
 
-/* INPUTS */
+/* Inputs */
 input, select {
     width: 100%;
     padding: 10px;
@@ -42,10 +42,10 @@ input, select {
     border: none;
 }
 
-/* BUTTON */
+/* Buttons */
 button {
     width: 100%;
-    margin-top: 12px;
+    margin-top: 10px;
     padding: 10px;
     border: none;
     border-radius: 6px;
@@ -59,8 +59,8 @@ button:hover {
     background: #002171;
 }
 
-/* RESULT */
+/* Output */
 p {
     margin-top: 10px;
-    font-size: 14px;
+    font-weight: bold;
 }
