@@ -15,10 +15,6 @@ body {
     text-align: center;
 }
 
-h1 {
-    margin-bottom: 15px;
-}
-
 input {
     padding: 10px;
     width: 200px;
