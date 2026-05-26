@@ -24,15 +24,15 @@ function checkGuarantee() {
 }
 
 function convertTime() {
-    let s = parseFloat(document.getElementById("seconds").value);
+    let sec = parseFloat(document.getElementById("seconds").value);
 
-    if (isNaN(s)) {
+    if (isNaN(sec)) {
         document.getElementById("timeResult").innerText = "Enter seconds.";
         return;
     }
 
     document.getElementById("timeResult").innerText =
-        (s / 60).toFixed(2) + " minutes";
+        (sec / 60).toFixed(2) + " minutes";
 }
 
 function calculateRefund() {
@@ -57,8 +57,8 @@ function generateDescription() {
     const data = {
         weight: "Boost metabolism and burn fat effectively.",
         memory: "Improve focus and brain performance.",
-        male: "Enhance stamina and overall performance.",
-        skin: "Promote glowing and healthy skin."
+        male: "Enhance stamina and confidence.",
+        skin: "Promote smooth and glowing skin."
     };
 
     document.getElementById("descriptionResult").innerText = data[type];
