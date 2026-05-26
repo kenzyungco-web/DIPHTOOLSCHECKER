@@ -1,66 +1,61 @@
-// MONEY BACK GUARANTEE CHECKER
-function checkGuarantee() {
-    const orderDate = new Date(document.getElementById("orderDate").value);
-    const days = parseInt(document.getElementById("guarantee").value);
+function checkGuarantee(){
+    let orderDate = new Date(document.getElementById("orderDate").value);
+    let days = parseInt(document.getElementById("daysOption").value);
+    let today = new Date();
 
-    if (!orderDate) {
-        document.getElementById("resultGuarantee").innerText = "Please select a valid date.";
+    let expiry = new Date(orderDate);
+    expiry.setDate(expiry.getDate() + days);
+
+    if (isNaN(orderDate)) {
+        document.getElementById("result").innerHTML = "Select a valid date.";
         return;
     }
 
-    const today = new Date();
-    const expiry = new Date(orderDate);
-    expiry.setDate(orderDate.getDate() + days);
-
-    if (today <= expiry) {
-        document.getElementById("resultGuarantee").innerText = "✅ Eligible for refund";
+    if(today <= expiry){
+        document.getElementById("result").innerHTML =
+        "✅ Eligible<br>Expires: " + expiry.toDateString();
     } else {
-        document.getElementById("resultGuarantee").innerText = "❌ No longer eligible";
+        document.getElementById("result").innerHTML =
+        "❌ Not Eligible<br>Expired: " + expiry.toDateString();
     }
-}
+}function convert(){
+    let seconds = parseFloat(document.getElementById("seconds").value);
 
-
-// AHT CONVERTER
-function convertAHT() {
-    const seconds = parseFloat(document.getElementById("seconds").value);
-
-    if (isNaN(seconds) || seconds < 0) {
-        document.getElementById("resultAHT").innerText = "Enter valid seconds.";
+    if(isNaN(seconds)){
+        document.getElementById("output").innerText = "Enter valid number";
         return;
     }
 
-    const minutes = seconds / 60;
-    document.getElementById("resultAHT").innerText = minutes.toFixed(2) + " minutes";
-}
+    let minutes = seconds / 60;
+    document.getElementById("output").innerText =
+        minutes.toFixed(2) + " minutes";
+}function convert(){
+    let seconds = parseFloat(document.getElementById("seconds").value);
 
-
-// REFUND CALCULATOR
-function calculateRefund() {
-    const price = parseFloat(document.getElementById("price").value);
-    const percent = parseInt(document.getElementById("refundType").value);
-
-    if (isNaN(price) || price <= 0) {
-        document.getElementById("resultRefund").innerText = "Enter valid price.";
+    if(isNaN(seconds)){
+        document.getElementById("output").innerText = "Enter valid number";
         return;
     }
 
-    const refund = (price * percent) / 100;
-    document.getElementById("resultRefund").innerText = "Refund Amount: $" + refund.toFixed(2);
-}
+    let minutes = seconds / 60;
+    document.getElementById("output").innerText =
+        minutes.toFixed(2) + " minutes";
+}function generate(){
+    let type = document.getElementById("productType").value;
+    let text = "";
 
-
-// PRODUCT DESCRIPTION GENERATOR
-function generateDescription() {
-    const name = document.getElementById("productName").value;
-    const feature = document.getElementById("productFeature").value;
-
-    if (!name || !feature) {
-        document.getElementById("resultDescription").innerText = "Fill all fields.";
-        return;
+    if(type === "weight"){
+        text = "Boost metabolism, burn fat, and support energy levels.";
+    }
+    else if(type === "memory"){
+        text = "Enhances focus, memory retention, and brain function.";
+    }
+    else if(type === "male"){
+        text = "Supports stamina, performance, and confidence.";
+    }
+    else if(type === "skin"){
+        text = "Improves hydration, glow, and skin health.";
     }
 
-    const description = `${name} is designed to deliver outstanding performance. 
-Featuring ${feature}, this product ensures high quality, reliability, and satisfaction for daily use.`;
-
-    document.getElementById("resultDescription").innerText = description;
+    document.getElementById("desc").innerText = text;
 }
