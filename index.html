@@ -1,73 +1,82 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Support Tools</title>
+    <meta charset="UTF-8">
+    <title>Support Tools Dashboard</title>
+
+    <!-- ✅ CORRECT CSS LINK -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Support Tools Dashboard</h1>
+<h1>Support Tools</h1>
 
-<!-- MONEY BACK CHECKER -->
-<div class="card">
-    <h2>Money-back Guarantee Checker</h2>
+<div class="container">
 
-    <input type="date" id="orderDate">
+    <!-- MONEY BACK -->
+    <div class="card">
+        <h2>Money-back Checker</h2>
 
-    <select id="daysOption">
-        <option value="60">60 Days</option>
-        <option value="90">90 Days</option>
-        <option value="180">180 Days</option>
-    </select>
+        <input type="date" id="orderDate">
 
-    <button onclick="checkGuarantee()">Check</button>
+        <select id="daysOption">
+            <option value="60">60 Days</option>
+            <option value="90">90 Days</option>
+            <option value="180">180 Days</option>
+        </select>
 
-    <p id="guaranteeResult"></p>
+        <button onclick="checkGuarantee()">Check</button>
+
+        <p id="guaranteeResult"></p>
+    </div>
+
+    <!-- AHT -->
+    <div class="card">
+        <h2>AHT Converter</h2>
+
+        <input type="number" id="seconds" placeholder="Seconds">
+
+        <button onclick="convertTime()">Convert</button>
+
+        <p id="timeResult"></p>
+    </div>
+
+    <!-- REFUND -->
+    <div class="card">
+        <h2>Refund Calculator</h2>
+
+        <input type="number" id="price" placeholder="Price">
+
+        <select id="refundOption">
+            <option value="0.35">35%</option>
+            <option value="0.50">50%</option>
+        </select>
+
+        <button onclick="calculateRefund()">Calculate</button>
+
+        <p id="refundResult"></p>
+    </div>
+
+    <!-- PRODUCT -->
+    <div class="card">
+        <h2>Product Description</h2>
+
+        <select id="productType">
+            <option value="weight">Weight Loss</option>
+            <option value="memory">Memory</option>
+            <option value="male">Male Enhancement</option>
+            <option value="skin">Skin Product</option>
+        </select>
+
+        <button onclick="generateDescription()">Generate</button>
+
+        <p id="descriptionResult"></p>
+    </div>
+
 </div>
 
-<!-- AHT CONVERTER -->
-<div class="card">
-    <h2>AHT Time Converter</h2>
-
-    <input type="number" id="seconds" placeholder="Enter Seconds">
-
-    <button onclick="convertTime()">Convert</button>
-
-    <p id="timeResult"></p>
-</div>
-
-<!-- REFUND CALCULATOR -->
-<div class="card">
-    <h2>Refund Offer Calculator</h2>
-
-    <input type="number" id="price" placeholder="Enter Product Price">
-
-    <select id="refundOption">
-        <option value="0.35">35%</option>
-        <option value="0.50">50%</option>
-    </select>
-
-    <button onclick="calculateRefund()">Calculate</button>
-
-    <p id="refundResult"></p>
-</div>
-
-<!-- PRODUCT DESCRIPTION -->
-<div class="card">
-    <h2>Product Description Generator</h2>
-
-    <select id="productType">
-        <option value="weight">Weight Loss</option>
-        <option value="memory">Memory</option>
-        <option value="male">Male Enhancement</option>
-        <option value="skin">Skin Product</option>
-    </select>
-
-    <button onclick="generateDescription()">Generate</button>
-
-    <p id="descriptionResult"></p>
-</div>
-
+<!-- ✅ CORRECT JS LINK -->
 <script src="script.js"></script>
+
 </body>
 </html>
