@@ -1,24 +1,25 @@
+document.getElementById("convertBtn").addEventListener("click", convertTime);
+
 function convertTime() {
-    const seconds = parseInt(document.getElementById("secondsInput").value);
+    const secondsInput = document.getElementById("secondsInput");
+    const result = document.getElementById("result");
+
+    const seconds = parseInt(secondsInput.value);
 
     // Validation
     if (isNaN(seconds) || seconds < 0) {
-        document.getElementById("result").textContent = "Please enter valid seconds.";
+        result.textContent = "Result: Please enter valid seconds.";
         return;
     }
 
-    // Convert seconds to minutes and seconds
+    // Conversion
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
 
-    // Display result
-    let resultText = "Result: ";
-
+    // Output
     if (minutes > 0) {
-        resultText += `${minutes} min `;
+        result.textContent = `Result: ${minutes} min ${remainingSeconds} sec`;
+    } else {
+        result.textContent = `Result: ${remainingSeconds} sec`;
     }
-
-    resultText += `${remainingSeconds} sec`;
-
-    document.getElementById("result").textContent = resultText;
 }
