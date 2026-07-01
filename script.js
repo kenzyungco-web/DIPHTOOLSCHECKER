@@ -1,204 +1,128 @@
-/* CLOCK */
-
-function updateClock(){
-
-  const now = new Date();
-
-  document.getElementById("clock").innerHTML =
-    now.toLocaleTimeString();
+/* RESET */
+ 
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
-
-setInterval(updateClock,1000);
-
-updateClock();
-
+ 
+/* BODY */
+ 
+body{
+  font-family:Arial;
+  background:linear-gradient(135deg,#0f172a,#2563eb);
+  min-height:100vh;
+  color:white;
+  padding:30px;
+}
+ 
+/* HEADER */
+ 
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:40px;
+  flex-wrap:wrap;
+}
+ 
+header h1{
+  font-size:36px;
+}
+ 
+/* TOP BAR */
+ 
+.top-bar{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+ 
+#clock{
+  background:white;
+  color:#2563eb;
+  padding:10px 20px;
+  border-radius:10px;
+  font-weight:bold;
+}
+ 
+/* BUTTON */
+ 
+button{
+  padding:12px 20px;
+  border:none;
+  border-radius:10px;
+  background:#38bdf8;
+  color:white;
+  font-size:16px;
+  cursor:pointer;
+  transition:0.3s;
+}
+ 
+button:hover{
+  transform:scale(1.05);
+  background:#0ea5e9;
+}
+ 
+/* DASHBOARD */
+ 
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:25px;
+}
+ 
+/* CARD */
+ 
+.card{
+  background:rgba(255,255,255,0.12);
+  padding:25px;
+  border-radius:20px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+ 
+.card h2{
+  margin-bottom:20px;
+}
+ 
+/* INPUTS */
+ 
+input{
+  width:100%;
+  padding:12px;
+  margin-bottom:15px;
+  border:none;
+  border-radius:10px;
+  outline:none;
+}
+ 
+/* RESULT */
+ 
+#guaranteeResult,
+#timeResult,
+#refundResult,
+#productResult{
+  margin-top:15px;
+  background:rgba(255,255,255,0.1);
+  padding:15px;
+  border-radius:10px;
+}
+ 
 /* DARK MODE */
-
-document
-.getElementById("darkBtn")
-.onclick = function(){
-
-  document.body.classList.toggle("dark");
-};
-
-/* MONEYBACK CHECKER */
-
-function checkGuarantee(){
-
-  const purchase =
-    document.getElementById("purchaseDate").value;
-
-  const days =
-    parseInt(document.getElementById("days").value);
-
-  const result =
-    document.getElementById("guaranteeResult");
-
-  if(!purchase || !days){
-
-    result.innerHTML =
-      "Please fill all fields";
-
-    return;
-  }
-
-  const purchaseDate = new Date(purchase);
-
-  const expiry = new Date(purchaseDate);
-
-  expiry.setDate(expiry.getDate() + days);
-
-  const today = new Date();
-
-  if(today <= expiry){
-
-    result.innerHTML =
-      `<span style="color:lightgreen">
-      Eligible for Refund
-      </span>`;
-
-  }else{
-
-    result.innerHTML =
-      `<span style="color:red">
-      Guarantee Expired
-      </span>`;
-  }
+ 
+.dark{
+  background:linear-gradient(135deg,#020617,#111827);
 }
-
-/* AHT CONVERTER */
-
-function convertTime(){
-
-  const seconds =
-    parseInt(document.getElementById("seconds").value);
-
-  const result =
-    document.getElementById("timeResult");
-
-  if(isNaN(seconds)){
-
-    result.innerHTML =
-      "Enter valid seconds";
-
-    return;
+ 
+/* MOBILE */
+ 
+@media(max-width:768px){
+ 
+  header{
+    flex-direction:column;
+    gap:20px;
+    text-align:center;
   }
-
-  const minutes =
-    (seconds/60).toFixed(2);
-
-  const hours =
-    (seconds/3600).toFixed(2);
-
-  const hh =
-    String(Math.floor(seconds/3600))
-    .padStart(2,"0");
-
-  const mm =
-    String(Math.floor((seconds%3600)/60))
-    .padStart(2,"0");
-
-  const ss =
-    String(seconds%60)
-    .padStart(2,"0");
-
-  result.innerHTML = `
-    <p>Minutes: ${minutes}</p>
-    <p>Hours: ${hours}</p>
-    <p>HH:MM:SS: ${hh}:${mm}:${ss}</p>
-  `;
-}
-
-/* REFUND CALCULATOR */
-
-function calculateRefund(){
-
-  const price =
-    parseFloat(document.getElementById("price").value);
-
-  const percent =
-    parseFloat(document.getElementById("percent").value);
-
-  const fee =
-    parseFloat(document.getElementById("fee").value);
-
-  const result =
-    document.getElementById("refundResult");
-
-  if(isNaN(price) || isNaN(percent) || isNaN(fee)){
-
-    result.innerHTML =
-      "Please fill all fields";
-
-    return;
-  }
-
-  const refund =
-    (price * percent / 100) - fee;
-
-  result.innerHTML = `
-    <h3>Final Refund</h3>
-    <p>$${refund.toFixed(2)}</p>
-  `;
-}
-
-/* PRODUCT DATA */
-
-const products = [
-
-  {
-    id:"P1001",
-    name:"Wireless Mouse",
-    category:"Accessories",
-    warranty:"1 Year",
-    refund:"30 Days",
-    price:"$25"
-  },
-
-  {
-    id:"P1002",
-    name:"Gaming Keyboard",
-    category:"Gaming",
-    warranty:"2 Years",
-    refund:"15 Days",
-    price:"$80"
-  }
-
-];
-
-/* SEARCH PRODUCT */
-
-function searchProduct(){
-
-  const query =
-    document.getElementById("productSearch")
-    .value
-    .toLowerCase();
-
-  const result =
-    document.getElementById("productResult");
-
-  const found =
-    products.find(product =>
-
-      product.id.toLowerCase() === query ||
-
-      product.name.toLowerCase().includes(query)
-    );
-
-  if(found){
-
-    result.innerHTML = `
-      <h3>${found.name}</h3>
-      <p>Category: ${found.category}</p>
-      <p>Warranty: ${found.warranty}</p>
-      <p>Refund Policy: ${found.refund}</p>
-      <p>Price: ${found.price}</p>
-    `;
-
-  }else{
-
-    result.innerHTML =
-      "Product not found";
-  }
+ 
 }
